@@ -1,0 +1,23 @@
+app:
+  version: '@project.version@'
+  sensors:
+    farm21:
+      url: https://farm21.fi/api/v1/
+      username: ${FARM21_USERNAME}
+      password: ${FARM21_PASSWORD}
+  scheduled:
+    data-import:
+      cron: "0 0 0 * * *" # every day at midnight
+    sensor-import:
+      cron: "0 0 0 * * *" # every day at midnight
+fiware:
+  context-broker-url: ${CONTEXT_BROKER_URL}
+logging:
+  level:
+    root: info
+    de.app.fivegla: trace
+    one.microstream: debug
+one:
+  microstream:
+    storage-directory: ${MICROSTREAM_STORAGE_DIRECTORY}
+    channel-count: 2

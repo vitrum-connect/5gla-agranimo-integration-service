@@ -1,0 +1,118 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "5GLA Farm21 Integration Service",
+    "description": "This service provides the integration of the Farm21 API with the 5GLA platform.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/sensor-import/run": {
+      "post": {
+        "tags": [
+          "sensor-import-controller"
+        ],
+        "description": "Run the import manually.",
+        "operationId": "sensor-import.run",
+        "responses": {
+          "200": {
+            "description": "The import was started."
+          }
+        }
+      }
+    },
+    "/sensor-data-import/run": {
+      "post": {
+        "tags": [
+          "sensor-data-import-controller"
+        ],
+        "description": "Run the import manually.",
+        "operationId": "sensor-data-import.run",
+        "responses": {
+          "200": {
+            "description": "The import was started."
+          }
+        }
+      }
+    },
+    "/info/version": {
+      "get": {
+        "tags": [
+          "info-controller"
+        ],
+        "description": "Fetch the version of the application.",
+        "operationId": "info.version",
+        "responses": {
+          "200": {
+            "description": "The version of the application.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VersionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/info/last-run": {
+      "get": {
+        "tags": [
+          "info-controller"
+        ],
+        "description": "Fetch the last run of the import.",
+        "operationId": "info.last-rum",
+        "responses": {
+          "200": {
+            "description": "The last run of the application.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LastRunResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "VersionResponse": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "description": "The timestamp of the response."
+          },
+          "version": {
+            "type": "string",
+            "description": "The version."
+          }
+        },
+        "description": "Response wrapper."
+      },
+      "LastRunResponse": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "description": "The timestamp of the response."
+          },
+          "lastRun": {
+            "type": "string",
+            "description": "The last run."
+          }
+        },
+        "description": "Response wrapper."
+      }
+    }
+  }
+}

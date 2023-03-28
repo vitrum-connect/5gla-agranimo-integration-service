@@ -1,0 +1,11 @@
+### Get version
+GET {{base-url}}/info/version
+
+### Get last run
+GET {{base-url}}/info/last-run
+
+### Start import for sensors manually
+POST {{base-url}}/sensor-import/run
+
+### Start import for sensor data manually
+POST {{base-url}}/sensor-data-import/run

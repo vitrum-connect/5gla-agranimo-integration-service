@@ -1,0 +1,34 @@
+{
+  "properties": [
+    {
+      "name": "app.version",
+      "type": "java.lang.String",
+      "description": "Application version."
+    },
+    {
+      "name": "app.storage.sensor-master-data",
+      "type": "java.lang.String",
+      "description": "Storage directory for sensor master data."
+    },
+    {
+      "name": "fiware.context-broker-url",
+      "type": "java.lang.String",
+      "description": "URL of the context broker."
+    },
+    {
+      "name": "app.sensors.farm21.url",
+      "type": "java.lang.String",
+      "description": "Farm21 API URL."
+    },
+    {
+      "name": "app.sensors.farm21.username",
+      "type": "java.lang.String",
+      "description": "Farm21 API username."
+    },
+    {
+      "name": "app.sensors.farm21.password",
+      "type": "java.lang.String",
+      "description": "Farm21 API password."
+    }
+  ]
+}
