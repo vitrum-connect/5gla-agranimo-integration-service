@@ -16,19 +16,19 @@
       "description": "URL of the context broker."
     },
     {
-      "name": "app.sensors.farm21.url",
+      "name": "app.sensors.agranimo.url",
       "type": "java.lang.String",
-      "description": "Farm21 API URL."
+      "description": "Agranimo API URL."
     },
     {
-      "name": "app.sensors.farm21.username",
+      "name": "app.sensors.agranimo.username",
       "type": "java.lang.String",
-      "description": "Farm21 API username."
+      "description": "Agranimo API username."
     },
     {
-      "name": "app.sensors.farm21.password",
+      "name": "app.sensors.agranimo.password",
       "type": "java.lang.String",
-      "description": "Farm21 API password."
+      "description": "Agranimo API password."
     }
   ]
 }
