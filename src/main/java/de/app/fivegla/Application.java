@@ -18,9 +18,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @SpringBootApplication
 @OpenAPIDefinition(
         info = @Info(
-                title = "5GLA Farm21 Integration Service",
+                title = "5GLA Agranimo Integration Service",
                 version = "${app.version:unknown}",
-                description = "This service provides the integration of the Farm21 API with the 5GLA platform."
+                description = "This service provides the integration of the Agranimo API with the 5GLA platform."
         )
 )
 public class Application {
