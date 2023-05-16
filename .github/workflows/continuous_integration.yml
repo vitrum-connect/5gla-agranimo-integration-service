@@ -23,4 +23,7 @@ jobs:
       - name: Build with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONTEXT_BROKER_URL: localhost:1026
+          AGRANIMO_USERNAME: test@agranimo.com
+          AGRANIMO_PASSWORD: test2021
         run: mvn -B verify --file pom.xml --settings .github/settings.xml

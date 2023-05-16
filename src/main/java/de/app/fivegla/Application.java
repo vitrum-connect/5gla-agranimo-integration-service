@@ -1,5 +1,6 @@
 package de.app.fivegla;
 
+import com.google.gson.Gson;
 import de.app.fivegla.fiware.DeviceIntegrationService;
 import de.app.fivegla.fiware.DeviceMeasurementIntegrationService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -18,9 +19,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @SpringBootApplication
 @OpenAPIDefinition(
         info = @Info(
-                title = "5GLA Farm21 Integration Service",
+                title = "5GLA Agranimo Integration Service",
                 version = "${app.version:unknown}",
-                description = "This service provides the integration of the Farm21 API with the 5GLA platform."
+                description = "This service provides the integration of the Agranimo API with the 5GLA platform."
         )
 )
 public class Application {
@@ -60,6 +61,16 @@ public class Application {
     @Bean
     public DeviceMeasurementIntegrationService deviceMeasurementIntegrationService() {
         return new DeviceMeasurementIntegrationService(contextBrokerUrl);
+    }
+
+    /**
+     * Dependency injection for the GSON library.
+     *
+     * @return -
+     */
+    @Bean
+    public Gson gson() {
+        return new Gson();
     }
 
 }

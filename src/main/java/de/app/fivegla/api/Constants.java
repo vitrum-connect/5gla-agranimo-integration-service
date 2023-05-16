@@ -1,10 +1,10 @@
 package de.app.fivegla.api;
 
 /**
- * Constants.¶
+ * Constants.
  */
 public interface Constants {
 
-    String FIWARE_FARM21_SENSOR_ID_PREFIX = "urn:5gla:farm21-sensor:";
+    String FIWARE_AGRANIMO_SENSOR_ID_PREFIX = "urn:5gla:agranimo-sensor:";
 
 }

@@ -1,10 +1,10 @@
 app:
   version: '@project.version@'
   sensors:
-    farm21:
-      url: https://farm21.fi/api/v1/
-      username: ${FARM21_USERNAME}
-      password: ${FARM21_PASSWORD}
+    agranimo:
+      url: https://public-staging.agranimo.com
+      username: ${AGRANIMO_USERNAME}
+      password: ${AGRANIMO_PASSWORD}
   scheduled:
     data-import:
       cron: "0 0 0 * * *" # every day at midnight
