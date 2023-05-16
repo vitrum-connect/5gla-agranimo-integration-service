@@ -25,11 +25,11 @@ public class FiwareIntegrationServiceWrapper {
     }
 
     private static String getFiwareId(int sensorId) {
-        return Constants.FIWARE_FARM21_SENSOR_ID_PREFIX + sensorId;
+        return Constants.FIWARE_AGRANIMO_SENSOR_ID_PREFIX + sensorId;
     }
 
     private static String getFiwareId() {
-        return Constants.FIWARE_FARM21_SENSOR_ID_PREFIX + UUID.randomUUID();
+        return Constants.FIWARE_AGRANIMO_SENSOR_ID_PREFIX + UUID.randomUUID();
     }
 
 }
