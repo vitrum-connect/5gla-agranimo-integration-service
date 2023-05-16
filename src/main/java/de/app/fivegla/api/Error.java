@@ -8,7 +8,8 @@ import lombok.Getter;
 @Getter
 public enum Error {
 
-    INVALID_REQUEST(errorOf(1));
+    INVALID_REQUEST(errorOf(1)), COULD_NOT_LOGIN_AGAINST_API(errorOf(2));
+
     private static String errorOf(int i) {
         return ERR_ + String.format("%05d", i);
     }
