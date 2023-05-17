@@ -10,6 +10,10 @@ POST {{base-url}}/sensor-import/run
 ### Start import for sensor data manually
 POST {{base-url}}/sensor-data-import/run
 
+#########################################################################
+### Agranimo API
+#########################################################################
+
 ### Login into the API
 POST https://public-staging.agranimo.com/auth/login
 Content-Type: application/json
@@ -18,3 +22,7 @@ Content-Type: application/json
   "username": "{{username}}",
   "password": "{{password}}"
 }
+
+### Fetch zone
+GET https://public-staging.agranimo.com/zone
+Authorization: Bearer {{access-token}}

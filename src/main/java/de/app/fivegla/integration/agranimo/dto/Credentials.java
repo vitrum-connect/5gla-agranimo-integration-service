@@ -1,14 +1,14 @@
-package de.app.fivegla.integration.agranimo.response;
+package de.app.fivegla.integration.agranimo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Response for login against the API.
+ * User credentials.
  */
 @Getter
 @Setter
-public class LoginResponse {
+public class Credentials {
 
     private String id;
     private String username;

@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LoginServiceTest {
+class ZoneServiceTest {
 
     @Autowired
-    private LoginService loginService;
+    private ZoneService zoneService;
 
     @Test
     void givenValidCredentialsWhenLoginThenTheRequestShouldBeAccepted() {
-        var optionalAccessToken = loginService.fetchAccessToken();
-        Assertions.assertThat(optionalAccessToken).isNotBlank();
+        var zones = zoneService.fetchZones();
+        Assertions.assertThat(zones).isNotEmpty();
+        Assertions.assertThat(zones.size()).isEqualTo(4);
     }
 }
