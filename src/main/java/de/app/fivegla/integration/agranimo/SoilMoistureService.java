@@ -25,12 +25,10 @@ public class SoilMoistureService {
     @Value("${app.sensors.agranimo.url}")
     private String url;
 
-    private final Gson gson;
     private final ZoneService zoneService;
     private final LoginService loginService;
 
-    public SoilMoistureService(Gson gson, ZoneService zoneService, LoginService loginService) {
-        this.gson = gson;
+    public SoilMoistureService(ZoneService zoneService, LoginService loginService) {
         this.zoneService = zoneService;
         this.loginService = loginService;
     }
