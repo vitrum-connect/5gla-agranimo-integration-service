@@ -1,6 +1,5 @@
 package de.app.fivegla.integration.agranimo;
 
-import com.google.gson.Gson;
 import de.app.fivegla.api.Error;
 import de.app.fivegla.api.ErrorMessage;
 import de.app.fivegla.api.exceptions.BusinessException;
@@ -11,11 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Service for login against the API.
@@ -33,37 +28,31 @@ public class LoginService {
     @Value("${app.sensors.agranimo.password}")
     private String password;
 
-    private final Gson gson;
     private final UserDataCache userDataCache;
 
-    public LoginService(Gson gson, UserDataCache userDataCache) {
-        this.gson = gson;
+    /**
+     * Service for integration with Agranimo.
+     */
+    public LoginService(UserDataCache userDataCache) {
         this.userDataCache = userDataCache;
     }
 
     /**
-     * Login against the API.
+     * Fetch the access token from the API.
      */
     public String fetchAccessToken() {
         if (userDataCache.isExpired()) {
             try {
-                var httpRequest = HttpRequest.newBuilder()
-                        .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(new LoginRequest(username, password))))
-                        .header("Content-Type", "application/json")
-                        .uri(URI.create(url + "/auth/login"))
-                        .build();
-                var httpClient = HttpClient.newHttpClient();
-                var response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-                if (response.statusCode() != HttpStatus.CREATED.value()) {
-                    log.error("Error while login against the API. Status code: {}", response.statusCode());
+                var response = new RestTemplate().postForEntity(url + "/auth/login", new LoginRequest(username, password), Credentials.class);
+                if (response.getStatusCode() != HttpStatus.CREATED) {
+                    log.error("Error while login against the API. Status code: {}", response.getStatusCode());
                     throw new BusinessException(ErrorMessage.builder()
                             .error(Error.COULD_NOT_LOGIN_AGAINST_API)
                             .message("Could not login against the API.")
                             .build());
                 } else {
                     log.info("Successfully logged in against the API.");
-                    var body = response.body();
-                    var credentials = gson.fromJson(body, Credentials.class);
+                    var credentials = response.getBody();
                     log.info("Access token found after successful: {}", credentials.getAccessToken());
                     userDataCache.setCredentials(credentials);
                     return credentials.getAccessToken();

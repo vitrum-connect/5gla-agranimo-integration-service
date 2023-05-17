@@ -12,7 +12,7 @@ class ZoneServiceTest {
     private ZoneService zoneService;
 
     @Test
-    void givenValidCredentialsWhenLoginThenTheRequestShouldBeAccepted() {
+    void givenValidCredentialsWhenFetchingTheZonesThenThereShouldBeAtLeast4Zones() {
         var zones = zoneService.fetchZones();
         Assertions.assertThat(zones).isNotEmpty();
         Assertions.assertThat(zones.size()).isEqualTo(4);
