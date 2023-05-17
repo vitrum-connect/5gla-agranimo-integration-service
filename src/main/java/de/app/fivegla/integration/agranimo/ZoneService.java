@@ -27,12 +27,6 @@ public class ZoneService {
     @Value("${app.sensors.agranimo.url}")
     private String url;
 
-    @Value("${app.sensors.agranimo.username}")
-    private String username;
-
-    @Value("${app.sensors.agranimo.password}")
-    private String password;
-
     private final Gson gson;
     private final LoginService loginService;
     private final UserDataCache userDataCache;
