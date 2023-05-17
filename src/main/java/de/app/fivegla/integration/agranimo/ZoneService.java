@@ -5,8 +5,7 @@ import de.app.fivegla.api.Error;
 import de.app.fivegla.api.ErrorMessage;
 import de.app.fivegla.api.exceptions.BusinessException;
 import de.app.fivegla.integration.agranimo.cache.UserDataCache;
-import de.app.fivegla.integration.agranimo.dto.Credentials;
-import de.app.fivegla.integration.agranimo.request.LoginRequest;
+import de.app.fivegla.integration.agranimo.dto.Zone;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -16,13 +15,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 
 /**
  * Service for login against the API.
  */
 @Slf4j
 @Service
-public class LoginService {
+public class ZoneService {
 
     @Value("${app.sensors.agranimo.url}")
     private String url;
@@ -34,49 +34,51 @@ public class LoginService {
     private String password;
 
     private final Gson gson;
+    private final LoginService loginService;
     private final UserDataCache userDataCache;
 
-    public LoginService(Gson gson, UserDataCache userDataCache) {
+    public ZoneService(Gson gson, LoginService loginService, UserDataCache userDataCache) {
         this.gson = gson;
+        this.loginService = loginService;
         this.userDataCache = userDataCache;
     }
 
     /**
      * Login against the API.
      */
-    public String fetchAccessToken() {
+    public List<Zone> fetchZones() {
         if (userDataCache.isExpired()) {
             try {
                 var httpRequest = HttpRequest.newBuilder()
-                        .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(new LoginRequest(username, password))))
-                        .header("Content-Type", "application/json")
-                        .uri(URI.create(url + "/auth/login"))
+                        .GET()
+                        .header("Authorization", "Bearer " + loginService.fetchAccessToken())
+                        .uri(URI.create(url + "/zone"))
                         .build();
                 var httpClient = HttpClient.newHttpClient();
                 var response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-                if (response.statusCode() != HttpStatus.CREATED.value()) {
-                    log.error("Error while login against the API. Status code: {}", response.statusCode());
+                if (response.statusCode() != HttpStatus.OK.value()) {
+                    log.error("Error while fetching zones from the API. Status code: {}", response.statusCode());
                     throw new BusinessException(ErrorMessage.builder()
-                            .error(Error.COULD_NOT_LOGIN_AGAINST_API)
-                            .message("Could not login against the API.")
+                            .error(Error.COULD_NOT_FETCH_ZONES)
+                            .message("Could not fetch zones.")
                             .build());
                 } else {
-                    log.info("Successfully logged in against the API.");
+                    log.info("Sucessfully fetched zones from the API.");
+                    log.debug("Response body: {}", response.body());
                     var body = response.body();
-                    var credentials = gson.fromJson(body, Credentials.class);
-                    log.info("Access token found after successful: {}", credentials.getAccessToken());
-                    userDataCache.setCredentials(credentials);
-                    return credentials.getAccessToken();
+                    var zones = gson.fromJson(body, Zone[].class);
+                    userDataCache.setZones(List.of(zones));
+                    return List.of(zones);
                 }
             } catch (Exception e) {
-                log.error("Error while login against the API.", e);
+                log.error("Error while fetching the zones.", e);
                 throw new BusinessException(ErrorMessage.builder()
-                        .error(Error.COULD_NOT_LOGIN_AGAINST_API)
-                        .message("Could not login against the API.")
+                        .error(Error.COULD_NOT_FETCH_ZONES)
+                        .message("Could not fetch zones.")
                         .build());
             }
         } else {
-            return userDataCache.getAccessToken();
+            return userDataCache.getZones();
         }
     }
 
