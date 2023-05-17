@@ -1,6 +1,5 @@
 package de.app.fivegla.integration.agranimo;
 
-import com.google.gson.Gson;
 import de.app.fivegla.integration.agranimo.domain.SoilMoistureType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
