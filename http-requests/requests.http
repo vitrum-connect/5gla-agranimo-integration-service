@@ -26,3 +26,7 @@ Content-Type: application/json
 ### Fetch zone
 GET https://public-staging.agranimo.com/zone
 Authorization: Bearer {{access-token}}
+
+### Fetch soil moisture
+GET https://public-staging.agranimo.com/zone/{{zone-id}}/data/soilmoisture
+Authorization: Bearer {{access-token}}

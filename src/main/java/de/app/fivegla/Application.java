@@ -1,6 +1,5 @@
 package de.app.fivegla;
 
-import com.google.gson.Gson;
 import de.app.fivegla.fiware.DeviceIntegrationService;
 import de.app.fivegla.fiware.DeviceMeasurementIntegrationService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -61,16 +60,6 @@ public class Application {
     @Bean
     public DeviceMeasurementIntegrationService deviceMeasurementIntegrationService() {
         return new DeviceMeasurementIntegrationService(contextBrokerUrl);
-    }
-
-    /**
-     * Dependency injection for the GSON library.
-     *
-     * @return -
-     */
-    @Bean
-    public Gson gson() {
-        return new Gson();
     }
 
 }

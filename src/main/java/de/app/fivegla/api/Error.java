@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public enum Error {
 
-    INVALID_REQUEST(errorOf(1)), COULD_NOT_LOGIN_AGAINST_API(errorOf(2)), COULD_NOT_FETCH_ZONES(errorOf(3));
+    INVALID_REQUEST(errorOf(1)), COULD_NOT_LOGIN_AGAINST_API(errorOf(2)), COULD_NOT_FETCH_ZONES(errorOf(3)), COULD_NOT_FETCH_SOIL_MOISTURE_FOR_ZONE(errorOf(4));
 
     private static String errorOf(int i) {
         return ERR_ + String.format("%05d", i);
