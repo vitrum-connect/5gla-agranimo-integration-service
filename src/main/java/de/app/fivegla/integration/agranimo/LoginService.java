@@ -53,9 +53,16 @@ public class LoginService {
                 } else {
                     log.info("Successfully logged in against the API.");
                     var credentials = response.getBody();
-                    log.info("Access token found after successful: {}", credentials.getAccessToken());
-                    userDataCache.setCredentials(credentials);
-                    return credentials.getAccessToken();
+                    if (null == credentials) {
+                        throw new BusinessException(ErrorMessage.builder()
+                                .error(Error.COULD_NOT_LOGIN_AGAINST_API)
+                                .message("Could not login against the API. Response was empty.")
+                                .build());
+                    } else {
+                        log.info("Access token found after successful: {}", credentials.getAccessToken());
+                        userDataCache.setCredentials(credentials);
+                        return credentials.getAccessToken();
+                    }
                 }
             } catch (Exception e) {
                 log.error("Error while login against the API.", e);

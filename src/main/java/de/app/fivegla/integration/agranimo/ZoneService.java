@@ -54,10 +54,17 @@ public class ZoneService {
                             .message("Could not fetch zones.")
                             .build());
                 } else {
-                    log.info("Successfully fetched zones from the API.");
                     var zones = response.getBody();
-                    userDataCache.setZones(List.of(zones));
-                    return List.of(zones);
+                    if (null == zones) {
+                        throw new BusinessException(ErrorMessage.builder()
+                                .error(Error.COULD_NOT_FETCH_ZONES)
+                                .message("Could not fetch zones. Response was empty.")
+                                .build());
+                    } else {
+                        log.info("Successfully fetched zones from the API.");
+                        userDataCache.setZones(List.of(zones));
+                        return List.of(zones);
+                    }
                 }
             } catch (Exception e) {
                 log.error("Error while fetching the zones.", e);
